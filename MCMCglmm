@@ -12,9 +12,9 @@ library(MCMCglmm)
 
 ## get the tree
 
-plover <- read_excel("C:~)
+plover <- read_excel("C:~/Species.xlsx")
 
-tree<-read.newick("~")
+tree<-read.newick("C:~/phylogeny.nwk")
 data<-column_to_rownames(plover, var = "Taxa")
 
 # Sanity check to see if the tree looks ok
@@ -26,7 +26,7 @@ obj
 
 shorttree<-drop.tip(tree, obj$tree_not_data)
 
-#Sanity checks to see whether all the species in the dataset match those for the tree file
+#Sanity checks to see whether all the species in the dataset match those for the tree file and that the tree looks ok
 name.check(shorttree,data)
 plot(shorttree)
 
