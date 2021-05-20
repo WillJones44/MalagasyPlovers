@@ -7,33 +7,34 @@ library(phytools)
 library(tidyverse)
 library(geiger)
 library(Rmisc)
+library(MCMCglmm)
+
 
 ## get the tree
 
-plover <- read_excel("C:/Users/willj/Dropbox/Plovers/plover manuscripts/Demography/Rfiles/SizeSurvival.xlsx", sheet = "datos")
+plover <- read_excel("C:~)
 
-tree<-read.newick("C:/Users/willj/Dropbox/Plovers/plover manuscripts/Demography/Rfiles/phylogeny.nwk")
+tree<-read.newick("~")
 data<-column_to_rownames(plover, var = "Taxa")
 
+# Sanity check to see if the tree looks ok
 plot(tree)
 
-
+# We need to prune the tree to remove all of the species that we do not have survival estimates for
 obj<-name.check(tree,data)
 obj
 
 shorttree<-drop.tip(tree, obj$tree_not_data)
-name.check(shorttree,data)
-bm<-corBrownian(1, shorttree)
-bm
 
+#Sanity checks to see whether all the species in the dataset match those for the tree file
+name.check(shorttree,data)
 plot(shorttree)
 
-## load the variables
+## MCMCglmm
 
-library(MCMCglmm)
+mcmc <- read_excel(~)
 
-mcmc <- read_excel("C:/Users/willj/Dropbox/Plovers/plover manuscripts/Demography/Rfiles/SizeSurvival.xlsx", sheet = "mcmcglmm")
-
+# load the variables
 mcmc<-column_to_rownames(mcmc, var = "Pop")
 
 
@@ -53,6 +54,8 @@ model_simple<-MCMCglmm(Survival~Clutch*EquatorDist+LogMass,random=~phylo, prior 
 summary(model_simple)
 
 plot(model_simple)
+
+# Extract lambda score to find out strength of phylo signal
 
 lambda <- model_simple$VCV[,'phylo']/
   (model_simple$VCV[,'phylo']+model_simple$VCV[,'units'])
