@@ -234,11 +234,12 @@ plover_surv_boot <-
 }
 
 #### Run survival bootstrap ----
+# NOTE: the defaults are "nitt = 5000000, burnin = 10000, thin = 5000"
+# if you want to do a test run then, change these specs manually and the nreps
 boot_out <- 
   plover_surv_boot(nreps = 1000, df = mcmc_data, 
                    prior = phylo_method_prior, 
-                   inv.phylo = inv.phylo,
-                   nitt = 50, burnin = 1, thin = 5)
+                   inv.phylo = inv.phylo)
 
 # plot of standardized effect size distribution of bootstrap results
 boot_out$coefficients_out %>% 
